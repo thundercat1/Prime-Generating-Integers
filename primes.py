@@ -38,7 +38,7 @@ def sieve(n):
     return filter(None,candidates)
 
 #primes = []
-n = 100
+n = 1000000
 startTime = time.time()
 primes=sieve(n)
 #print a
@@ -48,6 +48,6 @@ stopTime = time.time()
 print 'Time to compute primes < ' + str(n) + ' :   ' + str(stopTime-startTime)
 print 'Writing primes to file'
 
-sys.stdout = open('primes_to_100.txt', 'w')
+sys.stdout = open('primes_to_1000000.txt', 'w')
 for prime in primes:
     sys.stdout.write(str(prime) + '\n')

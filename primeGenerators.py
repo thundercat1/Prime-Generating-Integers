@@ -8,26 +8,26 @@ for line in f:
 primes = set(primes)
 
 def primeGenerator(candidate, primes):
-    #!!!  12 is definitely not a prime generator!
     divisors = []
-    i = 1
+    i = 2
+    if i == 2 and (candidate/2)%2 == 0:
+        return False
     while i*i <= candidate:
             if candidate % i == 0:
                 #if i is a divisor
-                if i not in primes:
+                if i + candidate/i not in primes:
                     return False
             i += 1
-    #print 'Found prime generator: ' + str(candidate)
     return True
 
 start = time.time()
-primeGenerators = []
+primeGenerators = [1]
 primesToCheck = len(primes)
 checked = 0
 for prime in primes:
-    sys.stdout.write('\r')
-    sys.stdout.write('Checking for qualifying candidates: ' + str(100*checked/primesToCheck) + '%     ')
-    sys.stdout.flush()
+    #sys.stdout.write('\r')
+    #sys.stdout.write('Checking for qualifying candidates: ' + str(100*checked/primesToCheck) + '%     ')
+    #sys.stdout.flush()
     candidate = prime - 1
     if primeGenerator(candidate, primes):
         primeGenerators.append(candidate)
@@ -36,9 +36,9 @@ for prime in primes:
 
 stopTime = time.time()
 print 'sum of primeGenerators = ' + str(sum(primeGenerators))
+print 'Computation time: ' + str(stopTime-start) 
 print 'Writing results to file'
 sys.stdout = open('prime_generators_to_100000000.txt','w')
 for generator in primeGenerators:
     sys.stdout.write(str(generator) + '\n')
 
-print 'Computation time: ' + str(stopTime-start) 
